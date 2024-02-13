@@ -1,0 +1,30 @@
+name: upload html code to S3
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    paths:
+    - 'front-end/public/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+        AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET_NAME }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}
+        AWS_REGION: 'us-east-1'
+        SOURCE_DIR: 'front-end/public'
+    steps:
+    - uses: actions/checkout@master
+    
+    - name: Sync to S3
+      uses: jakejarvis/s3-sync-action@master
+      with:
+        args: --acl private --follow-symlinks --delete
+      
+    - name: Invalidate CloudFront
+      run: aws cloudfront create-invalidation --distribution-id ${{ DISTRIBUTION_ID }} --paths "/"
