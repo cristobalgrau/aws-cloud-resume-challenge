@@ -16,17 +16,6 @@ resource "aws_lambda_function" "counter_lambda" {
   }
 }
 
-# ----> Creation of URL to invoque lambda
-# resource "aws_lambda_function_url" "lamdba_url" {
-#   function_name      = aws_lambda_function.counter_lambda.function_name
-#   authorization_type = "NONE"
-
-#   cors {
-#     allow_credentials = false
-#     allow_origins     = ["*"]
-#   }
-# }
-
 # ----> Creation of role for lambda Function
 resource "aws_iam_role" "iam_for_lambda" {
   name               = "iam_for_lambda"

@@ -25,7 +25,7 @@ provider "aws" {
 # ===== OUTPUT SECTION =====
 
 output "API-URL" {
-  value = "Invoke URL needed for index.js: ${aws_api_gateway_stage.resume.invoke_url}"
+  value = "Invoke URL needed for index.js: ${aws_api_gateway_stage.resume.invoke_url}/${aws_api_gateway_resource.views.path_part}"
 }
 
 
