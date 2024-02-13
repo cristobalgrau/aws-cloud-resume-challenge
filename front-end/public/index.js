@@ -6,7 +6,7 @@ const counter = document.querySelector(".counter-number");
 
 // Function to update the counter
 function updateCounter() {
-    // Makes an HTTP GET request to the provided AWS API Gateway
+    // Makes an HTTP GET request to the provided AWS API Gateway URL
     fetch("https://t5wnb4ated.execute-api.us-east-1.amazonaws.com/resume/views")
         // Handles the response by converting the response body to JSON format
         .then(response => response.json())
